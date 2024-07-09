@@ -10,29 +10,35 @@ import { SandwichStore } from './state';
 	standalone: true,
 	template: `
 		<ion-content [fullscreen]="true">
-			<ion-grid>
-				<ion-row style="height: 65%">
-					<ion-col size="12">
-						<ngt-canvas [sceneGraph]="scene" [camera]="{ position: [-2, 2.5, 5], fov: 30 }" />
-					</ion-col>
-				</ion-row>
-				<ion-row style="height: 35%">
-					<app-ingredient-store-front />
-				</ion-row>
-			</ion-grid>
+			<div class="container">
+				<div class="canvas-container">
+					<ngt-canvas [sceneGraph]="scene" [camera]="{ position: [-2, 2.5, 5], fov: 30 }" />
+				</div>
+				<app-ingredient-store-front />
+			</div>
 		</ion-content>
 	`,
 	styles: `
 		:host {
-			--ion-grid-padding: 0;
-			--ion-grid-column-padding: 0;
-
 			& ion-content {
 				height: 100vh;
 			}
 
-			& ion-grid {
+			& .container {
 				height: 100%;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+
+				& .canvas-container {
+					height: 65%;
+					width: 100%;
+				}
+
+				& app-ingredient-store-front {
+					height: 35%;
+				}
 			}
 		}
 	`,
