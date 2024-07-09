@@ -88,8 +88,8 @@ export const ingredientNames = Object.keys(INGREDIENTS) as Array<keyof typeof IN
 export const SandwichStore = signalStore(
 	withState({
 		ingredients: [
-			{ id: 0, name: 'bread' },
 			{ id: 1, name: 'bread' },
+			{ id: 2, name: 'bread' },
 		] as Array<{ id: number; name: keyof typeof INGREDIENTS }>,
 		addedToCart: false,
 	}),
@@ -102,9 +102,10 @@ export const SandwichStore = signalStore(
 			if (store.allowAddIngredient()) {
 				patchState(store, (state) => ({
 					ingredients: [
-						...state.ingredients.slice(0, -1),
-						{ name: ingredient, id: state.ingredients.length },
-						{ name: 'bread' as const, id: 1 },
+						state.ingredients[0],
+						...state.ingredients.slice(1, -1),
+						{ name: ingredient, id: state.ingredients.length + 1 },
+						state.ingredients[state.ingredients.length - 1],
 					],
 				}));
 			}

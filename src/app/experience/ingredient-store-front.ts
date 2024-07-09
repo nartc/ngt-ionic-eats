@@ -18,14 +18,19 @@ import { INGREDIENTS, SandwichStore, ingredientNames } from './state';
 				<p style="font-weight: lighter">Fresh and delicious sandwiches made with love</p>
 			</ion-text>
 			@if (sandwichStore.addedToCart()) {
-				<div>TBD</div>
+				<ion-text class="cart-success">
+					<p>This project is ported from Wawa Sensei's 3D Sandwich Configurator</p>
+				</ion-text>
 				<ion-button color="danger" (click)="sandwichStore.setAddedToCart(false)">
 					Cancel order ({{ sandwichStore.total() | currency }})
 				</ion-button>
 			} @else {
 				<div class="scroll-container">
 					@for (ingredient of ingredientNames; track ingredient) {
-						<ion-card (click)="sandwichStore.addIngredient(ingredient)">
+						<ion-card
+							[disabled]="!sandwichStore.allowAddIngredient()"
+							(click)="sandwichStore.addIngredient(ingredient)"
+						>
 							<ion-card-content>
 								<div class="ingredient-card-content">
 									<ion-text>{{ INGREDIENTS[ingredient].icon }}</ion-text>
@@ -73,6 +78,10 @@ import { INGREDIENTS, SandwichStore, ingredientNames } from './state';
 			& ion-card {
 				flex: 0 0 auto;
 			}
+		}
+
+		.cart-success {
+			flex: 1;
 		}
 
 		.ingredient-card-content {
