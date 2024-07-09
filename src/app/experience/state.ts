@@ -3,11 +3,6 @@ import { patchState, signalStore, withComputed, withMethods, withState } from '@
 import { injectGLTF } from 'angular-three-soba/loaders';
 
 export const INGREDIENTS = {
-	avocado: {
-		src: 'assets/models/Avocado_Slice_Avocado_0.glb',
-		icon: '🥑',
-		price: 1,
-	},
 	bacon: {
 		src: 'assets/models/Bacon_Slice_Bacon_0.glb',
 		icon: '🥓',
@@ -58,11 +53,6 @@ export const INGREDIENTS = {
 		icon: '🍄',
 		price: 0.5,
 	},
-	olive: {
-		src: 'assets/models/Olive_Slice_Oilives_0.glb',
-		icon: '🫒',
-		price: 0.5,
-	},
 	onion: {
 		src: 'assets/models/Onion_Slice_Onion_0.glb',
 		icon: '🧅',
@@ -93,6 +83,8 @@ export const INGREDIENTS = {
 // preload all ingredients
 injectGLTF.preload(() => Object.values(INGREDIENTS).map(({ src }) => src));
 
+export const ingredientNames = Object.keys(INGREDIENTS) as Array<keyof typeof INGREDIENTS>;
+
 export const SandwichStore = signalStore(
 	withState({
 		ingredients: [
@@ -102,18 +94,20 @@ export const SandwichStore = signalStore(
 		addedToCart: false,
 	}),
 	withComputed(({ ingredients }) => ({
-		total: computed(() => ingredients().reduce((sum, { name }) => sum + INGREDIENTS[name].price, 0)),
-		totalIngredients: computed(() => ingredients().length - 2),
+		total: computed(() => ingredients().reduce((sum, { name }) => sum + INGREDIENTS[name].price, 4)),
+		allowAddIngredient: computed(() => ingredients().length < 12),
 	})),
 	withMethods((store) => ({
 		addIngredient: (ingredient: keyof typeof INGREDIENTS) => {
-			patchState(store, (state) => ({
-				ingredients: [
-					...state.ingredients.slice(0, -1),
-					{ name: ingredient, id: state.ingredients.length },
-					{ name: 'bread' as const, id: 1 },
-				],
-			}));
+			if (store.allowAddIngredient()) {
+				patchState(store, (state) => ({
+					ingredients: [
+						...state.ingredients.slice(0, -1),
+						{ name: ingredient, id: state.ingredients.length },
+						{ name: 'bread' as const, id: 1 },
+					],
+				}));
+			}
 		},
 		removeIngredient: (ingredientId: number) => {
 			patchState(store, (state) => ({
