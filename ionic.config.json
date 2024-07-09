@@ -1,0 +1,7 @@
+{
+  "name": "ngt-ionic-eats",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
