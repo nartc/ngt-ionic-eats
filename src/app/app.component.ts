@@ -8,6 +8,4 @@ import { Experience } from './experience/experience';
 	standalone: true,
 	imports: [IonApp, IonRouterOutlet, Experience],
 })
-export class AppComponent {
-	constructor() {}
-}
+export class AppComponent {}

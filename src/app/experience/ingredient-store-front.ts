@@ -1,6 +1,6 @@
 import { CurrencyPipe, TitleCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { IonButton, IonCard, IonCardContent, IonText } from '@ionic/angular/standalone';
 import { INGREDIENTS, SandwichStore, ingredientNames } from './state';
 
 @Component({
@@ -50,67 +50,67 @@ import { INGREDIENTS, SandwichStore, ingredientNames } from './state';
 		</div>
 	`,
 	changeDetection: ChangeDetectionStrategy.OnPush,
-	imports: [IonicModule, TitleCasePipe, CurrencyPipe],
+	imports: [TitleCasePipe, CurrencyPipe, IonButton, IonText, IonCard, IonCardContent],
 	styles: `
 		:host {
 			display: block;
 			overflow: hidden;
 			width: 100%;
-		}
 
-		.container {
-			height: 100%;
-			display: flex;
-			flex-direction: column;
-		}
-
-		.scroll-container {
-			display: flex;
-			flex-wrap: nowrap;
-
-			overflow-x: auto;
-			-webkit-overflow-scrolling: touch;
-
-			&::-webkit-scrollbar {
-				display: none;
-			}
-
-			& ion-card {
-				flex: 0 0 auto;
-			}
-		}
-
-		.cart-success {
-			flex: 1;
-		}
-
-		.ingredient-card-content {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			flex-direction: column;
-
-			> ion-text {
-				font-size: larger;
-			}
-
-			& .ingredient-info {
+			& .container {
+				height: 100%;
 				display: flex;
-				gap: 0.25rem;
-				align-items: center;
+				flex-direction: column;
+			}
 
-				& .ingredient {
-					font-weight: bold;
+			& .scroll-container {
+				display: flex;
+				flex-wrap: nowrap;
+
+				overflow-x: auto;
+				-webkit-overflow-scrolling: touch;
+
+				&::-webkit-scrollbar {
+					display: none;
 				}
 
-				& .price {
-					font-size: small;
+				& ion-card {
+					flex: 0 0 auto;
 				}
 			}
-		}
 
-		ion-button {
-			width: 100%;
+			& .cart-success {
+				flex: 1;
+			}
+
+			& .ingredient-card-content {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+
+				> ion-text {
+					font-size: larger;
+				}
+
+				& .ingredient-info {
+					display: flex;
+					gap: 0.25rem;
+					align-items: center;
+
+					& .ingredient {
+						font-weight: bold;
+					}
+
+					& .price {
+						font-size: small;
+					}
+				}
+			}
+
+			& ion-button {
+				width: 100%;
+			}
 		}
 	`,
 })

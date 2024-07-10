@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { IonContent } from '@ionic/angular/standalone';
 import { NgtCanvas } from 'angular-three';
 import { IngredientStoreFront } from './ingredient-store-front';
 import { Scene } from './scene';
@@ -12,7 +12,7 @@ import { SandwichStore } from './state';
 		<ion-content [fullscreen]="true">
 			<div class="container">
 				<div class="canvas-container">
-					<ngt-canvas [sceneGraph]="scene" [camera]="{ position: [-2, 2.5, 5], fov: 30 }" />
+					<ngt-canvas [sceneGraph]="scene" [shadows]="true" [camera]="{ position: [-2, 2.5, 5], fov: 30 }" />
 				</div>
 				<app-ingredient-store-front />
 			</div>
@@ -42,7 +42,7 @@ import { SandwichStore } from './state';
 			}
 		}
 	`,
-	imports: [NgtCanvas, IonicModule, IngredientStoreFront],
+	imports: [NgtCanvas, IonContent, IngredientStoreFront],
 	providers: [SandwichStore],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
