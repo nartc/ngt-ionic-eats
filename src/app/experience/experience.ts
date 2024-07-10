@@ -20,10 +20,6 @@ import { SandwichStore } from './state';
 	`,
 	styles: `
 		:host {
-			& ion-content {
-				height: 100vh;
-			}
-
 			& .container {
 				height: 100%;
 				display: flex;
@@ -32,12 +28,8 @@ import { SandwichStore } from './state';
 				align-items: center;
 
 				& .canvas-container {
-					height: 65%;
 					width: 100%;
-				}
-
-				& app-ingredient-store-front {
-					height: 35%;
+					flex: 1;
 				}
 			}
 		}
